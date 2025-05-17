@@ -1,7 +1,7 @@
 <?php
+    require_once __DIR__ . '/../models/applicant.php';
     class ApplicationFormController{
         public function showFiveApplicants(){
-            require_once __DIR__ . '/../models/applicant.php';
             $application = new Applicant();
             $applications = $application->showApplicant();
             include_once __DIR__ . '/../views/application_form.php';
@@ -20,6 +20,7 @@
                 $error[] = 'Invalid Email';
             }
 
+            $portfolio = null;
             if(!empty($data['portfolio'])){
                 $url = trim($data['portfolio']);
 
@@ -30,7 +31,7 @@
                 if(!filter_var($url, FILTER_VALIDATE_URL)){
                     $error[] = 'Invalid URL';
                 }else{
-                    $data['portfolio'] = $url;
+                    $portfolio = $url;
                 }
             }
 
@@ -46,12 +47,9 @@
                 ]);
                 return;
             }
-
-            $portfolio = !empty($data['portfolio']) ? $data['portfolio'] : null;
-
-            require_once __DIR__ . '/../models/applicant.php';
+            
             $application = new Applicant();
-            $application->saveApplication($data['name'], $data['email'], $data['portfolio'], $data['letter']);
+            $application->saveApplication($data['name'], $data['email'], $portfolio, $data['letter']);
 
             echo json_encode([
                 'success' => true,
@@ -59,7 +57,7 @@
                 'applicationEntry' => [
                     'name' => htmlspecialchars($data['name']),
                     'email' => htmlspecialchars($data['email']),
-                    'portfolio' => htmlspecialchars($data['portfolio']),
+                    'portfolio' => htmlspecialchars($portfolio ?? ''),
                     'letter' => htmlspecialchars($data['letter']),
                     'date' => date('Y-m-d H:i:s')
                 ]
