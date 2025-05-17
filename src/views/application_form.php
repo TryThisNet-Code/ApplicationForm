@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
     <input type="text" name="aName" placeholder="Enter your name">
     <input type="email" name="aEmail" placeholder="Enter your email">
     <input type="url" name="aLink" placeholder="Enter a link to your portfolio(Optional)">
-    <textarea name="aLetter" id="letter" placeholder="Type your cover letter"></textarea>
+    <textarea name="aLetter" placeholder="Type your cover letter"></textarea>
     <button onclick="sendApplication()">Submit Application</button>
     <div id="showSuccess">
 
@@ -51,7 +52,7 @@
             })
             .then(res => res.json())
             .then(data => {
-                feedback.innerText = data.message;
+                feedback.innerText = Array.isArray(data.message) ? data.message.join('\\n') : data.message;
                 feedback.style.color = data.success ? "green" : "red";
 
                 if(data.success){
@@ -67,7 +68,7 @@
                         <p>Email: ${data.applicationEntry.email}</p>
                         <p>Portfolio ${data.applicationEntry.portfolio}</p>
                         <p>Cover Letter: ${data.applicationEntry.letter}</p>
-                        <small>Subtmitted at: ${data.applicationEntry.date}</small>
+                        <small>Submitted at: ${data.applicationEntry.date}</small>
                     `;
                     document.getElementById("applicationList").prepend(newAppEntry);
                 }
