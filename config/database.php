@@ -3,7 +3,7 @@
         private $host = 'localhost';
         private $user = 'root';
         private $pass = '';
-        private $dbname = '';
+        private $dbname = 'applicationdb';
         private $conn;
 
         public function connect(){
