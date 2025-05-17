@@ -4,11 +4,11 @@
             require_once __DIR__ . '/../models/applicant.php';
             $application = new Applicant();
             $applications = $application->showApplicant();
-            include_once __DIR__ . '/../views/applicantform.php';
+            include_once __DIR__ . '/../views/application_form.php';
         }
 
         public function saveApplication(){
-            $data = json_decode(file_get_contents('php://input', true));
+            $data = json_decode(file_get_contents('php://input'), true);
 
             $error = [];
 
@@ -46,6 +46,8 @@
                 ]);
                 return;
             }
+
+            $portfolio = !empty($data['portfolio']) ? $data['portfolio'] : null;
 
             require_once __DIR__ . '/../models/applicant.php';
             $application = new Applicant();
