@@ -10,18 +10,18 @@
     <input type="email" name="aEmail" placeholder="Enter your email">
     <input type="url" name="aLink" placeholder="Enter a link to your portfolio(Optional)">
     <textarea name="aLetter" id="letter" placeholder="Type your cover letter"></textarea>
-    <button onclick="sendApplication()"></button>
+    <button onclick="sendApplication()">Submit Application</button>
     <div id="showSuccess">
 
     </div>
     <div id="applicationList">
         <?php foreach($applications as $appli): ?>
             <div class="applicants">
-                <p><?= htmlspecialchars($appli['name'])?></p>
-                <p><?= htmlspecialchars($appli['email'])?></p>
-                <p><?= htmlspecialchars($appli['portfolio'])?></p>
-                <p><?= htmlspecialchars($appli['letter'])?></p>
-                <small><?= htmlspecialchars($appli['date'])?></small>
+                <p>Name: <?= htmlspecialchars($appli['name'])?></p>
+                <p>Email: <?= htmlspecialchars($appli['email'])?></p>
+                <p>Portfolio: <?= htmlspecialchars($appli['portfolio'])?></p>
+                <p>Cover Letter:<?= htmlspecialchars($appli['letter'])?></p>
+                <small>Submitted at: <?= htmlspecialchars($appli['date'])?></small>
             </div>
         <?php endforeach; ?>
     </div>
@@ -34,7 +34,7 @@
             const letter = document.querySelector('textarea[name="aLetter"]').value;
             const feedback = document.getElementById("showSuccess");
 
-            if(!name||!email||letter){
+            if(!name || !email || !letter){
                 alert("Please fill all the field");
                 return;
             }
@@ -63,11 +63,11 @@
                     const newAppEntry = document.createElement("div");
                     newAppEntry.classList.add("applicants");
                     newAppEntry.innerHTML = `
-                        <p> ${data.applicationEntry.name}</p>
-                        <p> ${data.applicationEntry.email}</p>
-                        <p> ${data.applicationEntry.portfolio}</p>
-                        <p> ${data.applicationEntry.letter}</p>
-                        <small> ${data.applicationEntry.date}</small>
+                        <p>Name: ${data.applicationEntry.name}</p>
+                        <p>Email: ${data.applicationEntry.email}</p>
+                        <p>Portfolio ${data.applicationEntry.portfolio}</p>
+                        <p>Cover Letter: ${data.applicationEntry.letter}</p>
+                        <small>Subtmitted at: ${data.applicationEntry.date}</small>
                     `;
                     document.getElementById("applicationList").prepend(newAppEntry);
                 }

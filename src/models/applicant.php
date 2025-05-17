@@ -17,7 +17,7 @@
         }
 
         public function showApplicant(){
-            $stmt = $this->conn->query("SELECT name, email, portfolio, letter, date FROM applicant_tbl ORDER BY DESC LIMIT 5");
+            $stmt = $this->conn->query("SELECT name, email, portfolio, letter, date FROM applicant_tbl ORDER BY date DESC LIMIT 5");
             return $stmt->fetch_all(MYSQLI_ASSOC);
         }
     }
